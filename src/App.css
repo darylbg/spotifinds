@@ -1,0 +1,12 @@
+body {
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.search-form {
+  display: flex;
+}
+
+.search-form button {
+  margin-left: 10px;
+}
