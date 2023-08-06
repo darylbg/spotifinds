@@ -10,3 +10,11 @@ body {
 .search-form button {
   margin-left: 10px;
 }
+
+.search-results-ul {
+  padding-left: 0;
+}
+
+.search-results-ul li {
+  list-style-type: none;
+}

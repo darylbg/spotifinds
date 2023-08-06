@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
-import Results from "./Results";
+import RecommendationResults from "./RecommendationResults";
+import SearchResults from "./SearchResults";
 
 export default function Search() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [searchData, setSearchData] = useState([]);
+  const [selectedTrack, setSelectedTrack] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("searchInput:", searchInput);
-    // handleSearch(searchInput);
-    setSearchInput("");
+    handleSearch();
+    // setSearchInput("");
   };
 
   const client_id = process.env.REACT_APP_CLIENT_ID;
@@ -33,7 +34,6 @@ export default function Search() {
         );
 
         setAccessToken(response.data.access_token);
-        console.log('access_token', response.data.access_token);
       } catch (error) {
         console.error("Error getting access token:", error);
       }
@@ -41,14 +41,17 @@ export default function Search() {
 
     getAccessToken();
   }, []);
-  
-//   let searchData = [];
+  // console.log(searchInput);
   const handleSearch = async () => {
     try {
-      const url = "https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl";
+      const url = "https://api.spotify.com/v1/search";
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          q: searchInput,
+          type: "track",
         },
       });
       setSearchData(response.data);
@@ -58,11 +61,11 @@ export default function Search() {
     }
   };
 
-  useEffect(() => {
-    if (accessToken) {
-      handleSearch();
-    }
-  }, [accessToken]);
+  const handleSelectedTrack = (e) => {
+    e.preventDefault();
+    setSelectedTrack(e.target.getAttribute('data-id'));
+    // console.log('selectedtrack:', selectedTrack);
+  }
 
   return (
     <Row>
@@ -73,13 +76,15 @@ export default function Search() {
             onChange={(e) => setSearchInput(e.target.value)}
             value={searchInput}
           />
+          
           <Button variant="primary" type="submit">
             Search
           </Button>
         </Form>
+        <SearchResults searchData={searchData} handleSelectedTrack={handleSelectedTrack}/>
       </Col>
       <Col xs={12} md={6}>
-        <Results searchData={searchData}/>
+        <RecommendationResults selectedTrack={selectedTrack}/>
       </Col>
     </Row>
   );
