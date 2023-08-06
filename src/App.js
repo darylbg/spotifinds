@@ -7,6 +7,7 @@ import {
 function App() {
   return (
     <Container fluid>
+      <h1>Spotifinds</h1>
       <Search />
     </Container>
   );
