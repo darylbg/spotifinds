@@ -4,7 +4,7 @@ import axios from "axios";
 import RecommendationResults from "./RecommendationResults";
 import SearchResults from "./SearchResults";
 
-export default function Search() {
+export default function Home() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [searchData, setSearchData] = useState([]);
@@ -41,7 +41,7 @@ export default function Search() {
 
     getAccessToken();
   }, []);
-  // console.log(searchInput);
+
   const handleSearch = async () => {
     try {
       const url = "https://api.spotify.com/v1/search";
@@ -55,7 +55,7 @@ export default function Search() {
         },
       });
       setSearchData(response.data);
-      console.log(searchData);
+      // console.log(searchData);
     } catch (error) {
       console.error("Error searching:", error);
     }
@@ -63,8 +63,9 @@ export default function Search() {
 
   const handleSelectedTrack = (e) => {
     e.preventDefault();
-    setSelectedTrack(e.target.getAttribute('data-id'));
-    // console.log('selectedtrack:', selectedTrack);
+    const trackId = e.currentTarget.getAttribute('data-id');
+    setSelectedTrack(trackId);
+    setSearchData([])
   }
 
   return (
@@ -84,7 +85,7 @@ export default function Search() {
         <SearchResults searchData={searchData} handleSelectedTrack={handleSelectedTrack}/>
       </Col>
       <Col xs={12} md={6}>
-        <RecommendationResults selectedTrack={selectedTrack}/>
+        <RecommendationResults selectedTrack={selectedTrack} accessToken={accessToken}/>
       </Col>
     </Row>
   );

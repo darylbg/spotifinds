@@ -1,4 +1,4 @@
-import Search from './Home';
+import Home from './components/Home';
 import './App.css';
 import {
   Container
@@ -8,7 +8,7 @@ function App() {
   return (
     <Container fluid>
       <h1>Spotifinds</h1>
-      <Search />
+      <Home />
     </Container>
   );
 }

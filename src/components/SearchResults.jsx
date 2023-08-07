@@ -11,7 +11,10 @@ export default function SearchResults({ searchData, handleSelectedTrack }) {
     <ul className='search-results-ul'>
       {searchData.tracks.items.map((item) => (
         <li key={item.id} data-id={item.id} onClick={handleSelectedTrack}>
-            {item.name}
+            <p>{item.name}</p>
+            {item.artists.map((artist, index) => (
+                <p key={index}>{artist.name}</p>
+                ))}
         </li>
       ))}
     </ul>
