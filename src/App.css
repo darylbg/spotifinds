@@ -10,11 +10,13 @@ body {
   margin-left: 10px;
 }
 
-.search-results-ul {
+.search-results-ul,
+.recommendations-ul {
   padding-left: 0;
 }
 
-.search-results-ul li {
+.search-results-ul li,
+.recommendations-ul li {
   list-style-type: none;
   cursor: pointer;
   margin-bottom: 5px;
@@ -24,3 +26,5 @@ body {
 .search-results-ul li p {
   margin: 0;
 }
+
+/* recommendations section */
