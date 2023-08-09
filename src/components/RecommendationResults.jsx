@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Spotify } from "react-spotify-embed";
 
 export default function RecommendationResults({ selectedTrack, accessToken }) {
   const [recommendationData, setRecommendationData] = useState([]);
@@ -18,7 +19,7 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      // console.log(response.data);
+      console.log(response.data);
       setSelectedTrackData(response.data);
     } catch (error) {
       // console.error("Error searching:", error);
@@ -35,7 +36,7 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
         params: {
           seed_tracks: selectedTrack,
           type: "track",
-          limit: 20
+          limit: 20,
         },
       });
       setRecommendationData(response.data);
@@ -44,7 +45,6 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
     }
   };
 
-  
   // play track
 
   if (recommendationData.tracks === undefined) {
@@ -54,19 +54,18 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
 
   return (
     <div>
+      <p>Recommended tracks similar to</p>
       <p>
-        <span>Recommended tracks similar to: {selectedTrackData.name} by </span>
-        {selectedTrackData.artists && selectedTrackData.artists.map((artist, index) => (
-          <span key={index}>{artist.name}</span>
-        ))}
-        </p>
-      <ul className='recommendations-ul'>
+        <Spotify link={selectedTrackData.external_urls.spotify} />
+      </p>
+      <ul className="recommendations-ul">
         {recommendationData.tracks.map((track, index) => (
           <li key={index}>
-            {track.name}
+            {/* {track.name}
             {track.artists.map((artist, index) => (
               <p key={index}>{artist.name}</p>
-            ))}
+            ))} */}
+            <Spotify wide link={track.external_urls.spotify} />
           </li>
         ))}
       </ul>
