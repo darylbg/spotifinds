@@ -10,11 +10,11 @@ export default function Home() {
   const [searchData, setSearchData] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleSearch();
-    // setSearchInput("");
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   handleSearch();
+  //   // setSearchInput("");
+  // };
 
   const client_id = process.env.REACT_APP_CLIENT_ID;
   const client_secret = process.env.REACT_APP_CLIENT_SECRET;
@@ -60,27 +60,31 @@ export default function Home() {
       console.error("Error searching:", error);
     }
   };
+  handleSearch();
 
   const handleSelectedTrack = (e) => {
     e.preventDefault();
     const trackId = e.currentTarget.getAttribute('data-id');
     setSelectedTrack(trackId);
-    setSearchData([])
+    setSearchData([]);
   }
 
   return (
     <Row>
       <Col xs={12} md={6}>
-        <Form onSubmit={handleSubmit} className="search-form">
+        <Form 
+        // onSubmit={handleSubmit} 
+        className="search-form"
+        >
           <Form.Control
             type="search"
             onChange={(e) => setSearchInput(e.target.value)}
             value={searchInput}
           />
           
-          <Button variant="primary" type="submit">
+          {/* <Button variant="primary" type="submit">
             Search
-          </Button>
+          </Button> */}
         </Form>
         <SearchResults searchData={searchData} handleSelectedTrack={handleSelectedTrack}/>
       </Col>

@@ -15,12 +15,21 @@ body {
   padding-left: 0;
 }
 
-.search-results-ul li,
-.recommendations-ul li {
+.search-results-ul li {
   list-style-type: none;
   cursor: pointer;
   margin-bottom: 5px;
   border-bottom: 1px solid grey;
+}
+
+.selected-track p {
+  display: inline-block;
+}
+
+.recommendations-ul li {
+  list-style-type: none;
+  cursor: pointer;
+  margin-bottom: 5px;
 }
 
 .search-results-ul li p {

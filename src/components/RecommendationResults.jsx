@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Spotify } from "react-spotify-embed";
+// import SpotifyPlayer from "react-spotify-player";
 
 export default function RecommendationResults({ selectedTrack, accessToken }) {
   const [recommendationData, setRecommendationData] = useState([]);
@@ -45,8 +46,6 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
     }
   };
 
-  // play track
-
   if (recommendationData.tracks === undefined) {
     // Data is still being fetched or is not available
     return <div>Loading...</div>;
@@ -54,10 +53,12 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
 
   return (
     <div>
-      <p>Recommended tracks similar to</p>
-      <p>
-        <Spotify link={selectedTrackData.external_urls.spotify} />
-      </p>
+      <div className="selected-track">
+        <p>Recommended tracks similar to</p>
+        <p>
+          <Spotify link={selectedTrackData.external_urls.spotify} />
+        </p>
+      </div>
       <ul className="recommendations-ul">
         {recommendationData.tracks.map((track, index) => (
           <li key={index}>
@@ -65,7 +66,11 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
             {track.artists.map((artist, index) => (
               <p key={index}>{artist.name}</p>
             ))} */}
-            <Spotify wide link={track.external_urls.spotify} />
+            <Spotify 
+            wide 
+            link={track.external_urls.spotify} 
+            style={{height: '100px'}}
+            />
           </li>
         ))}
       </ul>
