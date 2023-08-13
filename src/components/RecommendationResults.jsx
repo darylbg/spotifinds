@@ -62,10 +62,6 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
       <ul className="recommendations-ul">
         {recommendationData.tracks.map((track, index) => (
           <li key={index}>
-            {/* {track.name}
-            {track.artists.map((artist, index) => (
-              <p key={index}>{artist.name}</p>
-            ))} */}
             <Spotify 
             wide 
             link={track.external_urls.spotify} 
