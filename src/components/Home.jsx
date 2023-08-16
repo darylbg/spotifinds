@@ -8,13 +8,8 @@ export default function Home() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [searchData, setSearchData] = useState([]);
-  const [selectedTrack, setSelectedTrack] = useState('');
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   handleSearch();
-  //   // setSearchInput("");
-  // };
+  const [selectedTrack, setSelectedTrack] = useState("");
+  const [searchSelect, setSearchSelect] = useState("track");
 
   const client_id = process.env.REACT_APP_CLIENT_ID;
   const client_secret = process.env.REACT_APP_CLIENT_SECRET;
@@ -51,45 +46,61 @@ export default function Home() {
         },
         params: {
           q: searchInput,
-          type: "track",
+          type: searchSelect,
         },
       });
       setSearchData(response.data);
-      // console.log(searchData);
+      // console.log('artists', searchData.artists.items);
     } catch (error) {
       console.error("Error searching:", error);
     }
   };
-  handleSearch();
 
   const handleSelectedTrack = (e) => {
     e.preventDefault();
-    const trackId = e.currentTarget.getAttribute('data-id');
+    const trackId = e.currentTarget.getAttribute("data-id");
     setSelectedTrack(trackId);
     setSearchData([]);
-  }
+  };
+
+  const handleSearchSelect = (e) => {
+    e.preventDefault();
+    const selectOption = e.target.value;
+    setSearchSelect(selectOption);
+  };
+
+  handleSearch();
 
   return (
     <Row>
-      <Col xs={12} md={6}>
-        <Form 
-        // onSubmit={handleSubmit} 
-        className="search-form"
-        >
+      <Col xs={12} md={6} className="search-col">
+        <Form className="search-form">
           <Form.Control
             type="search"
             onChange={(e) => setSearchInput(e.target.value)}
             value={searchInput}
           />
-          
-          {/* <Button variant="primary" type="submit">
-            Search
-          </Button> */}
         </Form>
-        <SearchResults searchData={searchData} handleSelectedTrack={handleSelectedTrack}/>
+        <Form.Select
+          className="search-select"
+          aria-label="Default select example"
+          onChange={handleSearchSelect}
+        >
+          <option value="track">Track</option>
+          <option value="artist">Artist</option>
+          <option value="genre">Genre</option>
+        </Form.Select>
+        <SearchResults
+          searchData={searchData}
+          handleSelectedTrack={handleSelectedTrack}
+          searchSelect={searchSelect}
+        />
       </Col>
       <Col xs={12} md={6}>
-        <RecommendationResults selectedTrack={selectedTrack} accessToken={accessToken}/>
+        <RecommendationResults
+          selectedTrack={selectedTrack}
+          accessToken={accessToken}
+        />
       </Col>
     </Row>
   );

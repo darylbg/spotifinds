@@ -2,8 +2,13 @@ body {
   min-height: 100vh;
 }
 
+.search-col {
+  /* display: flex; */
+}
+
 .search-form {
-  display: flex;
+  display: inline-block;
+  margin-right: 5px;
 }
 
 .search-form button {
@@ -24,6 +29,11 @@ body {
 
 .selected-track p {
   display: inline-block;
+}
+
+.search-select {
+  width: fit-content !important;
+  display: inline-block !important;
 }
 
 .recommendations-ul li {
