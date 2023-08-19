@@ -60,7 +60,7 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
         </p>
       </div>
       <ul className="recommendations-ul">
-        {/* {recommendationData.tracks.map((track, index) => (
+        {recommendationData.tracks.map((track, index) => (
           <li key={index}>
             <Spotify 
             wide 
@@ -68,7 +68,7 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
             style={{height: '100px'}}
             />
           </li>
-        ))} */}
+        ))}
       </ul>
     </div>
   );

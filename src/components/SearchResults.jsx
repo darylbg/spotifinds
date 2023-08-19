@@ -29,7 +29,7 @@ export default function SearchResults({
       return (
         <ul className="search-results-ul">
           {searchData.artists.items.map((artist) => (
-            <li key={artist.id}>{artist.name}</li>
+            <li data-id={artist.id} onClick={handleSelectedTrack} key={artist.id}>{artist.name}</li>
           ))}
         </ul>
       );
@@ -40,7 +40,7 @@ export default function SearchResults({
       return (
         <ul className="search-results-ul">
           {searchData.genres.items.map((genre) => (
-            <li key={genre.id}>{genre.name}</li>
+            <li data-id={genre.id} onClick={handleSelectedTrack} key={genre.id}>{genre.name}</li>
           ))}
         </ul>
       );
