@@ -7,6 +7,7 @@ export default function RecommendationResults({
   selectedTrack,
   accessToken,
   searchInput,
+  searchSelect,
 }) {
   const [recommendationData, setRecommendationData] = useState([]);
   const [selectedTrackData, setSelectedTrackData] = useState({});
@@ -24,7 +25,7 @@ export default function RecommendationResults({
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log(response.data);
+      console.log("selected track", response.data);
       setSelectedTrackData(response.data);
     } catch (error) {
       // console.error("Error searching:", error);
@@ -34,14 +35,29 @@ export default function RecommendationResults({
   const handleGetRecommendations = async () => {
     try {
       const url = "https://api.spotify.com/v1/recommendations";
+      let seedParam;
+      switch (searchSelect) {
+        case "track":
+          seedParam = "seed_tracks";
+          break;
+        case "artist":
+          seedParam = "seed_artists";
+          break;
+        case "album":
+          seedParam = "seed_albums";
+          break;
+        default:
+          break;
+      }
+
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
         params: {
-          seed_tracks: selectedTrack,
+          seedParam: selectedTrack,
           // seed_artists: '4m4SfDVbF5wxrwEjDKgi4k',
-          type: { searchInput },
+          type: { searchSelect },
           // type: 'artist',
           limit: 20,
         },
@@ -58,7 +74,7 @@ export default function RecommendationResults({
     return <div>Loading...</div>;
   }
 
-  switch (searchInput) {
+  switch (searchSelect) {
     case "track":
       return (
         <div>
@@ -85,7 +101,7 @@ export default function RecommendationResults({
       return <p>artist recommedations</p>;
     case "album":
       return <p>album recommedations</p>;
-      default:
+    default:
       return null;
   }
 }

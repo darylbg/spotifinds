@@ -101,6 +101,7 @@ export default function Home() {
           selectedTrack={selectedTrack}
           accessToken={accessToken}
           searchInput={searchInput}
+          searchSelect={searchSelect}
         />
       </Col>
     </Row>
