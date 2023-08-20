@@ -55,7 +55,7 @@ export default function RecommendationResults({
           Authorization: `Bearer ${accessToken}`,
         },
         params: {
-          seedParam: selectedTrack,
+          [seedParam]: selectedTrack,
           // seed_artists: '4m4SfDVbF5wxrwEjDKgi4k',
           type: { searchSelect },
           // type: 'artist',
