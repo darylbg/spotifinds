@@ -33,14 +33,14 @@ export default function SearchResults({
           ))}
         </ul>
       );
-    case "genre":
-      if (!searchData || !searchData.genres || !searchData.genres.items) {
+    case "album":
+      if (!searchData || !searchData.albums || !searchData.albums.items) {
         return null;
       }
       return (
         <ul className="search-results-ul">
-          {searchData.genres.items.map((genre) => (
-            <li data-id={genre.id} onClick={handleSelectedTrack} key={genre.id}>{genre.name}</li>
+          {searchData.albums.items.map((album) => (
+            <li data-id={album.id} onClick={handleSelectedTrack} key={album.id}>{album.name}</li>
           ))}
         </ul>
       );

@@ -3,7 +3,11 @@ import axios from "axios";
 import { Spotify } from "react-spotify-embed";
 // import SpotifyPlayer from "react-spotify-player";
 
-export default function RecommendationResults({ selectedTrack, accessToken }) {
+export default function RecommendationResults({
+  selectedTrack,
+  accessToken,
+  searchInput,
+}) {
   const [recommendationData, setRecommendationData] = useState([]);
   const [selectedTrackData, setSelectedTrackData] = useState({});
 
@@ -36,11 +40,14 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
         },
         params: {
           seed_tracks: selectedTrack,
-          type: "track",
+          // seed_artists: '4m4SfDVbF5wxrwEjDKgi4k',
+          type: { searchInput },
+          // type: 'artist',
           limit: 20,
         },
       });
       setRecommendationData(response.data);
+      console.log("recommendations", response.data);
     } catch (error) {
       // console.error("Error searching:", error);
     }
@@ -51,25 +58,34 @@ export default function RecommendationResults({ selectedTrack, accessToken }) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <div>
-      <div className="selected-track">
-        <p>Recommended tracks similar to</p>
-        <p>
-          <Spotify link={selectedTrackData.external_urls.spotify} />
-        </p>
-      </div>
-      <ul className="recommendations-ul">
-        {recommendationData.tracks.map((track, index) => (
-          <li key={index}>
-            <Spotify 
-            wide 
-            link={track.external_urls.spotify} 
-            style={{height: '100px'}}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  switch (searchInput) {
+    case "track":
+      return (
+        <div>
+          <div className="selected-track">
+            <p>Recommended tracks similar to</p>
+            <p>
+              <Spotify link={selectedTrackData.external_urls.spotify} />
+            </p>
+          </div>
+          <ul className="recommendations-ul">
+            {recommendationData.tracks.map((track, index) => (
+              <li key={index}>
+                <Spotify
+                  wide
+                  link={track.external_urls.spotify}
+                  style={{ height: "100px" }}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    case "artist":
+      return <p>artist recommedations</p>;
+    case "album":
+      return <p>album recommedations</p>;
+      default:
+      return null;
+  }
 }

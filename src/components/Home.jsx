@@ -50,7 +50,7 @@ export default function Home() {
         },
       });
       setSearchData(response.data);
-      // console.log('artists', searchData.artists.items);
+      // console.log('genre', searchData);
     } catch (error) {
       console.error("Error searching:", error);
     }
@@ -88,7 +88,7 @@ export default function Home() {
         >
           <option value="track">Track</option>
           <option value="artist">Artist</option>
-          <option value="genre">Genre</option>
+          <option value="album">Album</option>
         </Form.Select>
         <SearchResults
           searchData={searchData}
@@ -100,6 +100,7 @@ export default function Home() {
         <RecommendationResults
           selectedTrack={selectedTrack}
           accessToken={accessToken}
+          searchInput={searchInput}
         />
       </Col>
     </Row>
