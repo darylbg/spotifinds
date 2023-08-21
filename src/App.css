@@ -27,6 +27,14 @@ body {
   border-bottom: 1px solid grey;
 }
 
+.search-results-tracks h3 {
+  font-size: 1em;
+}
+
+.search-results-tracks h6 {
+  font-size: 0.7em;
+}
+
 .selected-track p {
   display: inline-block;
 }

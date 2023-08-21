@@ -13,10 +13,10 @@ export default function SearchResults({
       return (
         <ul className="search-results-ul">
           {searchData.tracks.items.map((item) => (
-            <li key={item.id} data-id={item.id} onClick={handleSelectedTrack}>
-              <p>{item.name}</p>
+            <li className="search-results-tracks" key={item.id} data-id={item.id} onClick={handleSelectedTrack}>
+              <h3>{item.name}</h3>
               {item.artists.map((artist, index) => (
-                <p key={index}>{artist.name}</p>
+                <h6 key={index}>{artist.name}</h6>
               ))}
             </li>
           ))}

@@ -72,7 +72,7 @@ export default function Home() {
   handleSearch();
 
   return (
-    <Row>
+    <Row className="header-row">
       <Col xs={12} md={6} className="search-col">
         <Form className="search-form">
           <Form.Control
